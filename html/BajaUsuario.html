@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  <title>Baja de usuario</title>
+</head>
+<body>
+  <header style="background-color: blue; height: 100px;">
+    <img src="/img/logo.jfif" alt="" style="width: 100px;height: 100px;">
+  </header>
+  <h1>Eliminar Usuario</h1>
+  <div class="container">
+  <div id="datosUsuario"></div>
+  <button id="btnEliminar" class="btn btn-danger">Eliminar</button>
+  </div>
+  <script src="/js/script.js"></script>
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario_modificar"));
+    const contenedor = document.getElementById("datosUsuario");
+    const btnEliminar = document.getElementById("btnEliminar");
+
+    if (usuario) {
+      contenedor.innerHTML = `
+      
+        <p><strong>${usuario.nombre} ${usuario.apellido}</strong></p>
+        <p>Documento: ${usuario.tipo_documento} ${usuario.nro_documento}</p>
+        <p>Año: ${usuario.anio} - División: ${usuario.division}</p>
+     
+      `;
+
+      btnEliminar.addEventListener("click", () => {
+        if (confirm("¿Seguro que querés eliminar este usuario?")) {
+          eliminarUsuario(usuario.id);
+        }
+      });
+    } else {
+      contenedor.innerHTML = "<p>No se encontró ningún usuario para eliminar.</p>";
+      btnEliminar.disabled = true;
+    }
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@ const tipo_documento=document.getElementById("tipo_documento").value;
 const nro_documento=document.getElementById("nro_documento").value;
 const nombre=document.getElementById("nombre").value;
 const apellido=document.getElementById("apellido").value;
-const año=document.getElementById("año").value;
+const año=document.getElementById("anio").value;
 const division=document.getElementById("division").value;
 if(nombre.trim()===''){
     alert ('Ingrese el nombre');

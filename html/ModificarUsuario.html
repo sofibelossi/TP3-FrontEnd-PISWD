@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <title>Modificacion de usuario</title>
+</head>
+<body>
+  <header style="background-color: blue; height: 100px;">
+        <img src="/img/logo.jfif" alt="" style="width: 100px;height: 100px;">
+    </header>
+  <h1>Modificar Usuario</h1>
+  <form id="formModificar" style="border: 1px solid black; padding: 10px; border-radius: 15px;">
+    <label class="form-label">Tipo doc</label>
+    <select  id="tipo_documento" class="form-select">
+      <option value="LE">LE</option>
+      <option value="LC">LC</option>
+      <option value="DNI">DNI</option>
+    </select>
+    <label class="form-label">Número de documento</label>
+    <input type="text" id="nro_documento" placeholder="Numero de documento" class="form-control">
+    <label class="form-label">Nombre</label>
+    <input type="text" id="nombre" placeholder="Nombre" required class="form-control"/>
+     <label class="form-label">Apellido</label>
+    <input type="text" id="apellido" placeholder="Apellido" required class="form-control"/>
+    <label class="form-label">Año</label>
+    <select id="anio" required class="form-select">
+      <option value="">Año</option>
+      <option value="1°">1°</option>
+      <option value="2°">2°</option>
+      <option value="3°">3°</option>
+      <option value="4°">4°</option>
+      <option value="5°">5°</option>
+      <option value="6°">6°</option>
+      <option value="7°">7°</option>
+    </select>
+    <label class="form-label">Division</label>
+    <select id="division" required class="form-select">
+      <option value="">División</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <button type="reset" class="btn btn-danger">Borrar datos</button>
+  </form>
+  <script src="/js/script.js"></script>
+   <script src="/js/funciones.js"></script>
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario_modificar"));
+    if (usuario) {
+      document.getElementById("tipo_documento").value = usuario.tipo_documento;
+      document.getElementById("nro_documento").value = usuario.nro_documento;
+      document.getElementById("nombre").value = usuario.nombre;
+      document.getElementById("apellido").value = usuario.apellido;
+      document.getElementById("anio").value = usuario.anio;
+      document.getElementById("division").value = usuario.division;
+      formularioModificarUsuario(usuario.id);
+    }
+  </script>
+</body>
+</html>
