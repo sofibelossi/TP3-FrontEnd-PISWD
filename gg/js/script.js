@@ -1,15 +1,16 @@
-const API_URL = "/usuarios";
+const API_URL = "/usuarios";//define la ruta para las peticiones
 
-function mostrarUsuarios() {
-  fetch(API_URL)
-    .then(res => res.json())
+function mostrarUsuarios() {//funcion para mostrar usuarios
+  fetch(API_URL)//hace una peticion fetch para obtener los datos
+    .then(res => res.json())//convierte la respuesta a json
     .then(data => {
-      const tbody = document.getElementById("tablaUsuarios");
+      const tbody = document.getElementById("tablaUsuarios");//busca el cuerpo de la tabla por id y lo guarda en una variable 
       if (!tbody) return;
       tbody.innerHTML = "";
-      data.forEach(usuario => {
+      data.forEach(usuario => {//genera una fila por cada usuario con sus datos y lo guarda en la variable fila.
         const fila = `
           <tr>
+            <td>${usuario.id}</td>
             <td>${usuario.tipo_documento}</td>
             <td>${usuario.nro_documento}</td>
             <td>${usuario.nombre}</td>
@@ -26,26 +27,26 @@ function mostrarUsuarios() {
             </td>
           </tr>
         `;
-        tbody.innerHTML += fila;
+        tbody.innerHTML += fila;//agrega cada fila al cuerpo de la tabla
       });
       const p = document.getElementById("cantidadUsuarios");
-      if (p) p.textContent = "Cantidad de usuarios: " + data.length;
+      if (p) p.textContent = "Cantidad de usuarios: " + data.length;//actualiza el texto de cantidad de usuarios
     });
 }
 
 function guardarUsuario(usuario) {
-  localStorage.setItem("usuario_modificar", JSON.stringify(usuario));
+  localStorage.setItem("usuario_modificar", JSON.stringify(usuario));//funcion para guardar un usuario en localStorage que se ejecuta al hacer click en los botones modificar y eliminar
 }
 
 function formularioAltaUsuario() {
-  const form = document.getElementById("formUsuario");
+  const form = document.getElementById("formUsuario");//busca el formulario de alta por id
   if (!form) return;
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!validarFormulario(e.target)) {
+  form.addEventListener("submit", function (e) {//en el evento submit del boton
+   /* e.preventDefault();
+    if (!validarFormulario(e.target)) {//corta el flujo si falla en la validacion (funcion del archivo funciones.js)
     return;
-  }
+  }*/
     const usuario = {
       tipo_documento: document.getElementById("tipo_documento").value,
       nro_documento: document.getElementById("nro_documento").value,
@@ -53,53 +54,55 @@ function formularioAltaUsuario() {
       apellido: document.getElementById("apellido").value,
       anio: document.getElementById("anio").value,
       division: document.getElementById("division").value
-    };
+    };//guarda lo ingresado en el formulario en un objeto
 
-    fetch(API_URL, {
-      method: "POST",
+    fetch(API_URL, {//hace una peticion con fetch al archivo json
+      method: "POST",//utiliza el metodo post para enviar los datos
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(usuario)
     }).then(() => {
-      alert("Usuario agregado");
-      form.reset();
+      alert("Usuario agregado");//mensaje de exito
+      form.reset();//limpia el formulario
+      window.location.href = "TodosUsuario.html";
     });
   });
 }
 
 function formularioModificarUsuario(id) {
-  const form = document.getElementById("formModificar");
+  const form = document.getElementById("formModificar");//busca el formulario por id
   if (!form) return;
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  form.addEventListener("submit", function (e) {//en el evento submit del boton
+    e.preventDefault();//previene que el formulario se envie automaticamente
     const tipo_documento= document.getElementById("tipo_documento").value;
     const nro_documento= document.getElementById("nro_documento").value;
     const nombre = document.getElementById("nombre").value;
     const apellido = document.getElementById("apellido").value;
     const anio = document.getElementById("anio").value;
-    const division = document.getElementById("division").value;
+    const division = document.getElementById("division").value;//obtiene los valores ingresados en el formulario
 
-    fetch(`${API_URL}/${id}`, {
+    fetch(`${API_URL}/${id}`, {//envia los datos nuevos usando put
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ tipo_documento, nro_documento, nombre, apellido, anio, division })
     }).then(() => {
-      alert("Usuario modificado correctamente");
-      localStorage.removeItem("usuario_modificar");
+      alert("Usuario modificado correctamente");//mensaje de exito
+      localStorage.removeItem("usuario_modificar");//elimina el usuario que estaba guardado en localStorage
+      window.location.href = "TodosUsuario.html";
     });
   });
 }
 function eliminarUsuario(id) {
-  fetch(`/usuarios/${id}`, {
+  fetch(`/usuarios/${id}`, {//hace una peticion delete
     method: "DELETE"
   })
   .then(res => {
     if (res.ok) {
-      alert("Usuario eliminado correctamente");
-      localStorage.removeItem("usuario_modificar");
-      window.location.href = "TodosUsuario.html";
+      alert("Usuario eliminado correctamente");//si la respuesta es exitosa,muestra el mensaje de exito
+      localStorage.removeItem("usuario_modificar");//borra los datos de localStorage
+      window.location.href = "TodosUsuario.html";//redirige al archivo de la lista de usuarios
     } else {
-      alert("Error al eliminar el usuario");
+      alert("Error al eliminar el usuario");//si la respuesta no es exitosa se muestra un mensaje de error.
     }
   });
 }

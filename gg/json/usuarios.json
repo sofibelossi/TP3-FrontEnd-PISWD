@@ -1,0 +1,38 @@
+[
+  {
+    "tipo_documento": "DNI",
+    "nro_documento": "47794422",
+    "nombre": "Sofia",
+    "apellido": "Belossi",
+    "anio": "7°",
+    "division": "4",
+    "id": 1752863157942
+  },
+  {
+    "tipo_documento": "DNI",
+    "nro_documento": "47794422",
+    "nombre": "Sofia",
+    "apellido": "Belossi",
+    "anio": "7°",
+    "division": "4",
+    "id": 1752863157951
+  },
+  {
+    "id": 1752864822301,
+    "tipo_documento": "DNI",
+    "nro_documento": "47794422",
+    "nombre": "leo",
+    "apellido": "velossi",
+    "anio": "7°",
+    "division": "6"
+  },
+  {
+    "tipo_documento": "DNI",
+    "nro_documento": "47687789",
+    "nombre": "hamburguesa",
+    "apellido": "dfhnghfhfghf",
+    "anio": "6°",
+    "division": "8",
+    "id": 1752875724736
+  }
+]
